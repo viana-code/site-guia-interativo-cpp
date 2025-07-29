@@ -253,7 +253,12 @@ char jogoDaVelha[3][3] = {
     </main>
 
     <footer class="text-center py-6 border-t border-gray-200">
-        <p class="text-gray-500">Criado para facilitar o aprendizado de C++.</p>
+        <p class="text-gray-500">Criado e desenvolvido por
+             <a href="https://www.linkedin.com/in/jo%C3%A3o-guilherme-ara%C3%BAjo-viana/" target="_blank" rel="noopener noreferrer" class="text-sky-600 hover:underline">
+                João Guilherme
+            </a>
+            - Copyright &copy; 2025 (Todos os direitos reservados).
+        </p>
     </footer>
 
     <script>
@@ -269,7 +274,7 @@ char jogoDaVelha[3][3] = {
             const setUserName = (name) => {
                 const firstName = name.split(' ')[0];
                 headerName.textContent = firstName;
-                mainTitle.innerHTML = `Vamos começar, <span class="text-sky-600">${firstName}</span>!`;
+                mainTitle.innerHTML = `Vamos começar, <span class="text-sky-600">${firstName}!</span>`;
                 namePlaceholders.forEach(el => el.textContent = firstName);
                 // Preenche o campo de nome na seção I/O
                 const ioNomeInput = document.getElementById('io-nome');
