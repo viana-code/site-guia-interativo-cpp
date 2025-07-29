@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Guia Interativo de C++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation bar for easy access to different sections. Each C++ concept (I/O, conditionals, loops, arrays, matrices) is presented in its own thematic card-based section. This structure allows users to either scroll sequentially or jump directly to a topic of interest. Each section contains a clear explanation, the original code example, and a corresponding interactive element that simulates the code's behavior, providing a hands-on learning experience. This design was chosen to transform static information into an engaging and practical tool for beginners. -->
+    <!-- Visualization & Content Choices: The application uses interactive HTML elements to simulate C++ concepts, prioritizing hands-on learning over static displays. 
+        - I/O: Goal=Demonstrate input/output. Method=HTML form with inputs and a button that triggers JS to display formatted text, mimicking cin/cout.
+        - Conditionals: Goal=Show if/else logic. Method=Number input and a button that uses JS to display different messages and styles based on the input value.
+        - Loops: Goal=Visualize repetition. Method=Buttons that trigger JS functions to dynamically generate content, simulating 'for' and 'while' loops.
+        - Arrays: Goal=Explain data collections. Method=Forms to populate static-like lists and a dynamic list builder to simulate std::vector's push_back.
+        - Matrices: Goal=Visualize 2D data. Method=An HTML grid is used to render the 2D array, with hover effects to emphasize the structure.
+        - Justification: These choices directly translate abstract code into tangible results, reinforcing learning. No charts are needed.
+        - Library/Method: Vanilla JavaScript for all interactions. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Modal de Nome -->
+    <div id="name-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-sm">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Bem-vindo(a)!</h2>
+            <p class="text-gray-600 mb-6">Para começar, qual é o seu nome?</p>
+            <form id="name-form">
+                <input type="text" id="name-input" class="w-full p-3 rounded-md input-field" placeholder="Digite seu nome aqui" required>
+                <button type="submit" class="w-full btn py-3 rounded-md font-semibold mt-4">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <nav class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-xl font-bold text-gray-800">Guia Interativo de C++ para <span id="header-name" class="text-sky-600">você</span></h1>
+                <div class="hidden md:flex space-x-2">
+                    <a href="#io" class="nav-button px-3 py-2 rounded-md text-sm font-medium text-gray-700">Entrada/Saída</a>
+                    <a href="#conditionals" class="nav-button px-3 py-2 rounded-md text-sm font-medium text-gray-700">Condicionais</a>
+                    <a href="#loops" class="nav-button px-3 py-2 rounded-md text-sm font-medium text-gray-700">Laços</a>
+                    <a href="#arrays" class="nav-button px-3 py-2 rounded-md text-sm font-medium text-gray-700">Vetores</a>
+                    <a href="#matrices" class="nav-button px-3 py-2 rounded-md text-sm font-medium text-gray-700">Matrizes</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <div class="text-center mb-12">
+            <h2 id="main-title" class="text-4xl font-bold text-gray-800 mb-2">Aprenda C++ de Forma Prática</h2>
+            <p class="text-lg text-gray-600">Interaja com os exemplos de código para entender os conceitos fundamentais.</p>
+        </div>
+
+        <!-- Seção 1: Entrada e Saída -->
+        <section id="io" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">1. Entrada e Saída (I/O)</h3>
+            <p class="mb-4">Use `cout` para mostrar mensagens e `cin` para ler o que o usuário digita. Este exemplo pede seu nome e jogo favorito e depois exibe uma saudação.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-2">Código de Exemplo:</h4>
+                    <div class="code-block">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string nome;
+    string jogoFavorito;
+
+    cout &lt;&lt; "Qual o seu nome? ";
+    cin &gt;&gt; nome;
+
+    cout &lt;&lt; "Qual o seu jogo favorito? ";
+    cin &gt;&gt; jogoFavorito;
+
+    cout &lt;&lt; "E ai, " &lt;&lt; nome &lt;&lt; "! Eu tambem acho " 
+         &lt;&lt; jogoFavorito &lt;&lt; " um jogo muito legal!" &lt;&lt; endl;
+
+    return 0;
+}
+                    </div>
+                </div>
+                <div class="interactive-box p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2">Teste aqui:</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <label for="io-nome" class="block text-sm font-medium text-gray-700">Qual o seu nome?</label>
+                            <input type="text" id="io-nome" class="mt-1 block w-full rounded-md p-2 input-field" placeholder="Seu nome">
+                        </div>
+                        <div>
+                            <label for="io-jogo" class="block text-sm font-medium text-gray-700">Qual o seu jogo favorito?</label>
+                            <input type="text" id="io-jogo" class="mt-1 block w-full rounded-md p-2 input-field" placeholder="Nome do jogo">
+                        </div>
+                        <button id="io-btn" class="w-full btn py-2 rounded-md font-semibold">Executar</button>
+                        <div class="mt-4 p-3 bg-gray-100 rounded-md min-h-[4rem]">
+                            <p class="font-semibold text-gray-600">Saída:</p>
+                            <p id="io-output" class="text-gray-800"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Condicionais -->
+        <section id="conditionals" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">2. Estruturas Condicionais (if/else)</h3>
+            <p class="mb-4">O `if` e `else` permitem que o programa tome decisões. Este exemplo verifica se você tem idade para entrar em uma montanha-russa.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-2">Código de Exemplo:</h4>
+                    <div class="code-block">
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int idade;
+    cout &lt;&lt; "Qual a sua idade? ";
+    cin &gt;&gt; idade;
+
+    if (idade &gt;= 12) {
+        cout &lt;&lt; "Pode entrar! Divirta-se!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Que pena! Voce ainda nao pode entrar." &lt;&lt; endl;
+    }
+    return 0;
+}
+                    </div>
+                </div>
+                <div class="interactive-box p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2">Teste aqui, <span class="user-name-placeholder text-sky-600"></span>:</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <label for="cond-idade" class="block text-sm font-medium text-gray-700">Qual a sua idade?</label>
+                            <input type="number" id="cond-idade" class="mt-1 block w-full rounded-md p-2 input-field" placeholder="12">
+                        </div>
+                        <button id="cond-btn" class="w-full btn py-2 rounded-md font-semibold">Verificar</button>
+                        <div id="cond-output-box" class="mt-4 p-3 rounded-md min-h-[4rem] transition-colors duration-300">
+                            <p class="font-semibold">Resultado:</p>
+                            <p id="cond-output"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Laços -->
+        <section id="loops" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">3. Laços de Repetição</h3>
+            <p class="mb-4">Laços repetem blocos de código. O `for` é ótimo para um número fixo de repetições, enquanto o `while` continua até uma condição se tornar falsa.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- For Loop -->
+                <div class="interactive-box p-4 rounded-lg border">
+                    <h4 class="font-semibold mb-2">Laço `for`</h4>
+                    <div class="code-block mb-4">
+for (int i = 0; i < 3; i++) {
+    cout &lt;&lt; "GOL!" &lt;&lt; endl;
+}
+                    </div>
+                    <button id="for-btn" class="w-full btn py-2 rounded-md font-semibold">Gritar Gol!</button>
+                    <div class="mt-4 p-3 bg-gray-100 rounded-md min-h-[6rem]">
+                        <p class="font-semibold text-gray-600">Saída:</p>
+                        <div id="for-output" class="text-gray-800"></div>
+                    </div>
+                </div>
+                <!-- While Loop -->
+                <div class="interactive-box p-4 rounded-lg border">
+                    <h4 class="font-semibold mb-2">Laço `while` (Jogo de Adivinhação)</h4>
+                     <div class="code-block mb-4">
+int numeroSecreto = 7;
+int palpite = 0;
+while (palpite != numeroSecreto) {
+    cout &lt;&lt; "Qual o seu palpite? ";
+    cin &gt;&gt; palpite;
+}
+cout &lt;&lt; "Parabens! Voce acertou!" &lt;&lt; endl;
+                    </div>
+                    <label for="while-palpite" class="block text-sm font-medium text-gray-700">Adivinhe o número (1-10):</label>
+                    <input type="number" id="while-palpite" class="mt-1 block w-full rounded-md p-2 input-field">
+                    <button id="while-btn" class="w-full btn py-2 rounded-md font-semibold mt-2">Adivinhar</button>
+                    <div class="mt-2 p-3 bg-gray-100 rounded-md min-h-[2rem]">
+                         <p id="while-output" class="text-center font-medium"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Vetores -->
+        <section id="arrays" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">4. Vetores (Arrays)</h3>
+            <p class="mb-4">Vetores são listas que guardam múltiplos itens. Os estáticos têm tamanho fixo, enquanto os dinâmicos (`std::vector`) podem crescer.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Vetor Estático -->
+                <div class="interactive-box p-4 rounded-lg border">
+                    <h4 class="font-semibold mb-2">Vetor Estático (Lista de Tarefas)</h4>
+                    <p class="text-sm text-gray-600 mb-2">Preencha suas 3 tarefas principais, <span class="user-name-placeholder text-sky-600"></span>.</p>
+                    <div class="space-y-2">
+                        <input type="text" id="array-tarefa1" class="block w-full rounded-md p-2 input-field" placeholder="Tarefa 1">
+                        <input type="text" id="array-tarefa2" class="block w-full rounded-md p-2 input-field" placeholder="Tarefa 2">
+                        <input type="text" id="array-tarefa3" class="block w-full rounded-md p-2 input-field" placeholder="Tarefa 3">
+                    </div>
+                    <button id="array-btn" class="w-full btn py-2 rounded-md font-semibold mt-3">Salvar Tarefas</button>
+                    <div class="mt-4 p-3 bg-gray-100 rounded-md min-h-[8rem]">
+                        <p class="font-semibold text-gray-600">Lembrete de Tarefas:</p>
+                        <ul id="array-output" class="list-disc list-inside text-gray-800"></ul>
+                    </div>
+                </div>
+                <!-- Vetor Dinâmico -->
+                <div class="interactive-box p-4 rounded-lg border">
+                    <h4 class="font-semibold mb-2">Vetor Dinâmico (Lista de Compras)</h4>
+                    <p class="text-sm text-gray-600 mb-2">Adicione itens à sua lista de compras.</p>
+                    <div class="flex space-x-2">
+                        <input type="text" id="vector-item" class="block w-full rounded-md p-2 input-field" placeholder="Ex: Maçãs">
+                        <button id="vector-add-btn" class="btn px-4 rounded-md font-semibold">Add</button>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-100 rounded-md min-h-[8rem]">
+                        <p class="font-semibold text-gray-600">Sua Lista:</p>
+                        <ul id="vector-output" class="list-disc list-inside text-gray-800"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção 5: Matrizes -->
+        <section id="matrices" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">5. Matrizes (Arrays 2D)</h3>
+            <p class="mb-4">Matrizes são como tabelas ou grades, com linhas e colunas, perfeitas para representar um tabuleiro de jogo, por exemplo.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-2">Código de Exemplo:</h4>
+                    <div class="code-block">
+char jogoDaVelha[3][3] = {
+    {'X', 'O', ' '},
+    {' ', 'X', 'O'},
+    {'O', ' ', 'X'}
+};
+// ... código para imprimir ...
+                    </div>
+                </div>
+                <div class="interactive-box p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2">Visualização (Jogo da Velha):</h4>
+                    <p class="text-sm text-gray-600 mb-4">Passe o mouse sobre as células para ver a estrutura da grade.</p>
+                    <div id="matrix-output" class="grid grid-cols-3 gap-1 max-w-xs mx-auto bg-gray-400">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 border-t border-gray-200">
+        <p class="text-gray-500">Criado para facilitar o aprendizado de C++.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('name-modal');
+            const nameForm = document.getElementById('name-form');
+            const nameInput = document.getElementById('name-input');
+            
+            const headerName = document.getElementById('header-name');
+            const mainTitle = document.getElementById('main-title');
+            const namePlaceholders = document.querySelectorAll('.user-name-placeholder');
+
+            const setUserName = (name) => {
+                const firstName = name.split(' ')[0];
+                headerName.textContent = firstName;
+                mainTitle.innerHTML = `Vamos começar, <span class="text-sky-600">${firstName}</span>!`;
+                namePlaceholders.forEach(el => el.textContent = firstName);
+                // Preenche o campo de nome na seção I/O
+                const ioNomeInput = document.getElementById('io-nome');
+                if (ioNomeInput) {
+                    ioNomeInput.value = name;
+                }
+            };
+
+            nameForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const userName = nameInput.value.trim();
+                if (userName) {
+                    localStorage.setItem('cppGuideUserName', userName);
+                    setUserName(userName);
+                    modal.classList.add('hidden');
+                }
+            });
+
+            const checkUserName = () => {
+                const savedName = localStorage.getItem('cppGuideUserName');
+                if (savedName) {
+                    setUserName(savedName);
+                    modal.classList.add('hidden');
+                } else {
+                    modal.classList.remove('hidden');
+                }
+            };
+
+            checkUserName();
+            
+            // Seção 1: I/O
+            const ioBtn = document.getElementById('io-btn');
+            ioBtn.addEventListener('click', () => {
+                const nome = document.getElementById('io-nome').value || 'Pessoa';
+                const jogo = document.getElementById('io-jogo').value || 'esse jogo';
+                const output = document.getElementById('io-output');
+                output.textContent = `E ai, ${nome}! Eu tambem acho ${jogo} um jogo muito legal!`;
+            });
+
+            // Seção 2: Condicionais
+            const condBtn = document.getElementById('cond-btn');
+            condBtn.addEventListener('click', () => {
+                const idade = parseInt(document.getElementById('cond-idade').value) || 0;
+                const output = document.getElementById('cond-output');
+                const outputBox = document.getElementById('cond-output-box');
+                if (idade >= 12) {
+                    output.textContent = "Pode entrar! Divirta-se!";
+                    outputBox.style.backgroundColor = '#D1FAE5';
+                    output.style.color = '#065F46';
+                } else {
+                    output.textContent = "Que pena! Voce ainda nao pode entrar.";
+                    outputBox.style.backgroundColor = '#FEE2E2';
+                    output.style.color = '#991B1B';
+                }
+            });
+
+            // Seção 3: Laços
+            const forBtn = document.getElementById('for-btn');
+            forBtn.addEventListener('click', () => {
+                const output = document.getElementById('for-output');
+                output.innerHTML = '';
+                for (let i = 0; i < 3; i++) {
+                    const p = document.createElement('p');
+                    p.textContent = 'GOL!';
+                    output.appendChild(p);
+                }
+            });
+            const whileBtn = document.getElementById('while-btn');
+            const numeroSecreto = 7;
+            whileBtn.addEventListener('click', () => {
+                const palpite = parseInt(document.getElementById('while-palpite').value);
+                const output = document.getElementById('while-output');
+                if (palpite === numeroSecreto) {
+                    output.textContent = "Parabéns! Você acertou!";
+                    output.style.color = '#065F46';
+                } else if (palpite < numeroSecreto) {
+                    output.textContent = "Muito baixo! Tente de novo.";
+                    output.style.color = '#991B1B';
+                } else if (palpite > numeroSecreto) {
+                    output.textContent = "Muito alto! Tente de novo.";
+                    output.style.color = '#991B1B';
+                } else {
+                    output.textContent = "Entrada inválida.";
+                    output.style.color = '#4A5568';
+                }
+            });
+
+            // Seção 4: Vetores
+            const arrayBtn = document.getElementById('array-btn');
+            arrayBtn.addEventListener('click', () => {
+                const tarefas = [
+                    document.getElementById('array-tarefa1').value || 'Tarefa pendente',
+                    document.getElementById('array-tarefa2').value || 'Tarefa pendente',
+                    document.getElementById('array-tarefa3').value || 'Tarefa pendente'
+                ];
+                const output = document.getElementById('array-output');
+                output.innerHTML = '';
+                tarefas.forEach(tarefa => {
+                    const li = document.createElement('li');
+                    li.textContent = tarefa;
+                    output.appendChild(li);
+                });
+            });
+            const vectorAddBtn = document.getElementById('vector-add-btn');
+            const vectorOutput = document.getElementById('vector-output');
+            const vectorItems = [];
+            vectorAddBtn.addEventListener('click', () => {
+                const itemInput = document.getElementById('vector-item');
+                const item = itemInput.value.trim();
+                if (item) {
+                    vectorItems.push(item);
+                    itemInput.value = '';
+                    renderVector();
+                }
+                itemInput.focus();
+            });
+            function renderVector() {
+                vectorOutput.innerHTML = '';
+                vectorItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    vectorOutput.appendChild(li);
+                });
+            }
+
+            // Seção 5: Matrizes
+            const matrixOutput = document.getElementById('matrix-output');
+            const jogoDaVelha = [
+                ['X', 'O', ' '],
+                [' ', 'X', 'O'],
+                ['O', ' ', 'X']
+            ];
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'flex items-center justify-center h-20 w-20 bg-white text-4xl font-bold transition-colors duration-200 hover:bg-gray-200';
+                    cell.textContent = jogoDaVelha[i][j];
+                    matrixOutput.appendChild(cell);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
